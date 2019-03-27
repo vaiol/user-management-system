@@ -1,0 +1,58 @@
+{
+  "name": "user-management-system",
+  "version": "1.0.0",
+  "description": "BE user management system",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "knex": "knex --knexfile=./src/db/knexfile.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vaiol/user-management-system.git"
+  },
+  "author": "alexander.stepano@gmail.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vaiol/user-management-system/issues"
+  },
+  "homepage": "https://github.com/vaiol/user-management-system#readme",
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix",
+      "git add"
+    ]
+  },
+  "devDependencies": {
+    "@types/joi": "^14.3.2",
+    "@types/koa-router": "^7.0.40",
+    "@types/passport": "^1.0.0",
+    "eslint": "^5.15.3",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-config-prettier": "^4.1.0",
+    "eslint-plugin-import": "^2.16.0",
+    "eslint-plugin-prettier": "^3.0.1",
+    "husky": "^1.3.1",
+    "lint-staged": "^8.1.5",
+    "prettier": "^1.16.4"
+  },
+  "dependencies": {
+    "bcrypt": "^3.0.5",
+    "joi": "^14.3.1",
+    "knex": "^0.16.3",
+    "koa": "^2.7.0",
+    "koa-bodyparser": "^4.2.1",
+    "koa-passport": "^4.1.1",
+    "koa-router": "^7.4.0",
+    "passport-jwt": "^4.0.0",
+    "passport-local": "^1.0.0",
+    "pg": "^7.9.0",
+    "winston": "^3.2.1"
+  }
+}
