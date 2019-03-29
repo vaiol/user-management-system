@@ -9,7 +9,7 @@ const hashPass = async password => {
   return bcrypt.hash(password, salt);
 };
 
-const comparePass = (userPassword, databasePassword) => {
+const comparePass = async (userPassword, databasePassword) => {
   return bcrypt.compare(userPassword, databasePassword);
 };
 

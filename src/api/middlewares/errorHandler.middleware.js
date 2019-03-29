@@ -15,6 +15,7 @@ const errorHandlerMiddleware = async (ctx, next) => {
       ctx.body = err.toObject();
       ctx.status = err.status;
     } else if (err.isJoi) {
+      // errors from validation.middleware
       ctx.status = 400;
       ctx.body = err;
     } else {

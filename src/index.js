@@ -1,20 +1,20 @@
 const Koa = require("koa");
 const bodyParser = require("koa-bodyparser");
 
-const { router } = require("./api/routes");
 const { logger } = require("./config/logger");
 const { PORT, NODE_ENV } = require("./config/env");
-const { passport } = require("./api/middlewares/passport.middleware");
+const { router } = require("./api/routes");
 const {
-  errorHandlerMiddleware
-} = require("./api/middlewares/errorHandler.middleware");
+  errorHandlerMiddleware,
+  passportMiddleware
+} = require("./api/middlewares");
 
 const app = new Koa();
 
 app
   .use(bodyParser())
   .use(errorHandlerMiddleware)
-  .use(passport.initialize())
+  .use(passportMiddleware)
   .use(router.routes())
   .use(router.allowedMethods());
 

@@ -10,7 +10,7 @@ const userFields = ["id", "name", "email"];
 
 /**
  * @param user {CreateUserDTO}
- * @returns {Promise<User>}
+ * @returns {Promise<User[]>}
  */
 const addUser = user =>
   knex(TABLES.USERS)
@@ -19,7 +19,7 @@ const addUser = user =>
 
 /**
  * @param id {number}
- * @returns {Promise<User>}
+ * @returns {Promise<User[]>}
  */
 const getUser = id =>
   knex(TABLES.USERS)
@@ -35,37 +35,47 @@ const getUser = id =>
 const getUsersList = (skip = 0, take = 10, order = "id") =>
   knex(TABLES.USERS)
     .select(userFields)
+    .where({ is_su: false })
     .offset(skip)
     .limit(take)
     .orderBy(order);
 
 /**
  * @param user {UpdateUserDTO}}
- * @returns {Promise<User>}
+ * @returns {Promise<User[]>}
  */
 const updateUser = user =>
   knex(TABLES.USERS)
     .update(user)
-    .where({ id: user.id })
+    .where({ id: user.id, is_su: false })
     .returning(userFields);
 
 /**
  * @param id {number}
- * @returns {Promise<User>}
+ * @returns {Promise<User[]>}
  */
 const removeUser = id =>
   knex(TABLES.USERS)
     .del()
-    .where({ id })
+    .where({ id, is_su: false })
     .returning(userFields);
 
 /**
  * @param email {string}
- * @returns {Promise<{ id: number }>}
+ * @returns {Promise<{ id: number }[]>}
  */
 const getByEmail = email =>
   knex(TABLES.USERS)
-    .select("id")
+    .select(userFields)
+    .where({ email });
+
+/**
+ * @param email {string}
+ * @returns {Promise<{ id: number }[]>}
+ */
+const getFullUser = email =>
+  knex(TABLES.USERS)
+    .select("id", "email", "name", "password")
     .where({ email });
 
 module.exports = {
@@ -74,5 +84,6 @@ module.exports = {
   getUsersList,
   updateUser,
   removeUser,
-  getByEmail
+  getByEmail,
+  getFullUser
 };
